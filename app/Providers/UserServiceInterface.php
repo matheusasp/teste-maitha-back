@@ -10,7 +10,9 @@ interface UserServiceInterface
 {
     public function find($id);
 
-    public function createOrUpdate(array $user): User;
+    public function create(array $user): User;
+
+    public function update(int $id, array $user): bool;
 
     public function delete($id);
 

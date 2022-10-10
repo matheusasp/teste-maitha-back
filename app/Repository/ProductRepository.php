@@ -2,17 +2,17 @@
 
 namespace App\Repository;
 
-use App\Models\User;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
 
-class UserRepository extends AbstractRepository implements UserRepositoryInterface
+class ProductRepository extends AbstractRepository implements ProductRepositoryInterface
 {
     protected $model;
 
-    public function __construct(User $User)
+    public function __construct(Product $Product)
     {
-        $this->model = $User;
+        $this->model = $Product;
     }
 
 
@@ -20,26 +20,14 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     {
         return $this->model->orderBy('name')->get();
     }
-    public function find($id): User
+    public function find($id): Product
     {
 
     return $this->model->whereId($id)->firstOrFail();
 
     }
 
-    public function findByEmail($email): User
-    {
-
-    return $this->model->whereEmail($email)->firstOrFail();
-
-    }
-
-    public function findByToken($tokenData)
-    {
-    return $this->model->whereToken($tokenData['token'])->whereId($tokenData['id'])->first();
-    }
-
-    public function store($data): User
+    public function store($data): Product
     {
         return $this->model->create($data);
     }

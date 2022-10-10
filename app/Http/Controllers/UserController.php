@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Providers\UserService;
 use App\Models\User;
-
+use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -26,8 +27,20 @@ class UserController extends Controller
 
     public function insertUser(Request $request): User {
        $userDto = $this->userService->makeUserDto($request->all());
-       return $this->userService->createOrUpdate($userDto);
+       return $this->userService->create($userDto);
     }
+
+    public function updateUser(Request $request) {
+        try {
+            $this->userService->update($request->id, $request->all());
+            return response()->json([
+                'Atualizado!'
+            ]);
+        } catch(Exception $e) {
+            return $e;
+        }
+
+     }
 
     public function statusActiveUser(int $id) {
 
@@ -51,5 +64,4 @@ class UserController extends Controller
             'id' => $id
         ]);
     }
-
 }

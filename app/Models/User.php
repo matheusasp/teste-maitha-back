@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
 
     protected $table = 'user';
     public $timestamps = false;
@@ -18,6 +20,11 @@ class User extends Model
         'name',
         'email',
         'password',
-        'active'
+        'active',
+        'token'
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
     ];
 }
