@@ -45,6 +45,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
          //   \App\Http\Middleware\AuthCustom::class,
             
+            
         ],
 
  
@@ -69,5 +70,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'authCustom' => \App\Http\Middleware\AuthCustom::class,
+        'isAdmin' => \App\Http\Middleware\AdminRoleMiddleware::class
     ];
 }

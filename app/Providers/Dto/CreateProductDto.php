@@ -12,7 +12,9 @@ class CreateProductDto extends AbstractDto implements DtoInterface
     protected function configureValidatorRules(): array
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required'
         ];
     }
 
@@ -23,6 +25,8 @@ class CreateProductDto extends AbstractDto implements DtoInterface
     {
       try{
         $this->name  = $data['name'];
+        $this->description  = $data['description'];
+        $this->price  = $data['price'];
 
         return true;
       } catch(Exception $e){

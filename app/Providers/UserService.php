@@ -20,6 +20,11 @@ final class UserService implements UserServiceInterface
         $this->repository = $repository;
     }
 
+    public function all()
+    {
+        return $this->repository->all();
+    }
+
     public function find($id): User
     {
         return $this->repository->find($id);
@@ -37,6 +42,11 @@ final class UserService implements UserServiceInterface
 
     public function update(int $id, array $user): bool
     {
+        
+        if(isset($user['password'])) {
+            $user['password'] = Hash::make($user['password']);
+        }
+        
         return $this->repository->update($id, $user);
     }
 

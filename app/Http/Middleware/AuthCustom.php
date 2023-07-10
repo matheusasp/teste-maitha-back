@@ -23,27 +23,35 @@ class AuthCustom
 
     public function handle(Request $request, Closure $next)
     {
+
       $path = $request->path();
 
       if (str_contains($path, 'product')) {
           $tokenRequest = [
             'token' => $request->bearerToken(),
-            'id' =>  $request->all()['idUser']
+            'id' =>  $request->route('idUser')
           ];
       } else {
           $tokenRequest = [
             'token' => $request->bearerToken(),
-            'id' =>  $request->id
+            'id' =>  $request->route('idUser')
           ];
       }
 
      $tokenRetrieved =  $this->userService->findByToken($tokenRequest);
 
+     if($tokenRequest['token'] == null) {
+        return response()->json([
+          'unauthenticated'
+      ]);
+     }
+
+
      if($tokenRequest['token'] == $tokenRetrieved){
         return $next($request);
      } else {
          return response()->json([
-            'unauthenticated'
+            'unauthenticated', 401
         ]);
      }
 

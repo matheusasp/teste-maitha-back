@@ -12,9 +12,19 @@ class ProductController extends Controller
         $this->productService =  $productService;
     }
 
-    public function getProduct(int $id): Product {
+    public function getProduct(Request $request): Product {
+
         try{
-            return $this->productService->find($id);
+            return $this->productService->find($request->route('id'));
+        }
+        catch(Exception $e){
+            return $e;
+        }
+    }
+
+    public function getAllProduct() {
+        try{
+            return $this->productService->all();
         }
         catch(Exception $e){
             return $e;
@@ -28,7 +38,7 @@ class ProductController extends Controller
 
     public function updateProduct(Request $request) {
         try {
-            $this->productService->update($request->id, $request->all());
+            $this->productService->update($request->route('idProduct'), $request->all());
             return response()->json([
                 'Atualizado!'
             ]);
@@ -38,12 +48,12 @@ class ProductController extends Controller
 
      }
 
-    public function deleteProduct(int $id) {
+    public function deleteProduct(Request $request) {
 
-       $this->productService->delete($id);
+       $this->productService->delete($request->route('idProduct'));
 
         return response()->json([
-            'id' => $id
+            'id' => $request->route('idProduct')
         ]);
     }
 }

@@ -16,7 +16,7 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        
+
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -24,10 +24,9 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
            $user =  $this->userService->findByEmail($credentials['email']);
-           return $user->getAttributes()['token'];
+           return response()->json(['token' => $user->getAttributes()['token'], 'id' => $user->getAttributes()['id'] ], 200);
         }
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+
+        return response()->json(['error' => 'The provided credentials do not match our records.'], 401);
     }
 }
