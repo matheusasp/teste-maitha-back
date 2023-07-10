@@ -1,7 +1,5 @@
-Essa é uma simples API com um sistema básico de autenticação e CRUD para usuários e produtos. Descreverei abaixo os passos para utilizá-la:
+Essa é uma API para ser consumida pelo projeto front.
 
-Na pasta raíz do projeto há um arquivo chamado RequestHero que contém uma exportação de todas as requisições que a API é capaz de realizar para ser importado em Insomnia/Postman. Apenas basta substituir e adicionar os campos na URL que devem ir ID, tokens e o body.
+Ao baixar o projeto, execute os comandos php artisan migrate e php artisan db:seed para popular o banco com usuários que possam ser utilizados.
 
-Por ser apenas uma API simples, utilizei um sistema de autenticação básico que funciona da seguinte forma:
-Ao criar um usuário para acessar, ele gerará um token de autenticação único, esse token deverá ser passado como Bearer token em todas as requisições que exigem autenticação. Para obter o token basta realizar a requisição de login que ele retornará o token daquele usuário para que possa ser utilizado.
-
+O seed colocará um usuário chamado admin@example.com com senha 1234 que pode ser utilizado para logar no front.
